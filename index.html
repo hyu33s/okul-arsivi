@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ortaokul Kaynak Arşivi</title>
+    <!-- FontAwesome İkonları -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root[data-theme="dark"] {
+            --bg-primary: #121214;
+            --bg-secondary: #1a1a1e;
+            --bg-card: #222228;
+            --text-primary: #f0f0f5;
+            --text-secondary: #a0a0b0;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --border: #2e2e38;
+            --code-bg: #151518;
+        }
+
+        :root[data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent: #4f46e5;
+            --accent-hover: #4338ca;
+            --border: #e2e8f0;
+            --code-bg: #f1f5f9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            margin: 0 0.8rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .theme-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 3.5rem 1rem;
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .container h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .notice-box {
+            background-color: var(--bg-card);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.2rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Grid Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Kod Listesi Tasarımı */
+        .code-list {
+            list-style: none;
+        }
+
+        .code-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0.8rem;
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-item span.publisher {
+            font-weight: 600;
+        }
+
+        .code-item code {
+            background: var(--bg-secondary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--accent);
+            font-family: monospace;
+            font-weight: bold;
+            border: 1px solid var(--border);
+        }
+
+        /* Kronometre & Not Bölümü */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-box {
+            background-color: var(--bg-card);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .timer-controls input {
+            width: 65px;
+            padding: 0.4rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .timer-controls input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .tool-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .tool-buttons button {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .tool-buttons button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.8rem;
+            border-radius: 6px;
+            resize: none;
+            margin-top: 0.5rem;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .creator-tag {
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 0.4rem;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i> Ortaokul Kaynak Arşivi
+        </div>
+        <nav class="nav-links">
+            <a href="#kaynaklar">Kitaplar</a>
+            <a href="#anahtar-kodlar">Anahtar Kodları</a>
+            <a href="#araclar">Çalışma Araçları</a>
+            <a href="#notlar">Hızlı Notlar</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Tema Değiştir">
+            <i class="fa-solid fa-sun"></i>
+        </button>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Ortaokul Kaynak Arşivi</h1>
+        <p>5, 6, 7 ve 8. Sınıf MEB resmi ders kitapları, yayın anahtar kodları ve çalışma araçları tek çatı altında.</p>
+    </section>
+
+    <!-- Kaynaklar Bölümü -->
+    <section id="kaynaklar" class="container">
+        
+        <!-- 5. Sınıf Kitapları -->
+        <h2><i class="fa-solid fa-book-bookmark"></i> 5. Sınıf Ders Kitapları Arşivi</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h3>Matematik 5. Sınıf (1. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/matematik5-1.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Matematik 5. Sınıf (2. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/matematik5-2.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Türkçe 5. Sınıf (1. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/turkce5-1.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Türkçe 5. Sınıf (2. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/turkce5-2.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Sosyal Bilgiler 5. Sınıf (1. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/sosyalbilgiler5-1.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Sosyal Bilgiler 5. Sınıf (2. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/sosyalbilgiler5-2.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Fen Bilimleri 5. Sınıf (1. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/fenbilimleri5-1.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Fen Bilimleri 5. Sınıf (2. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/fenbilimleri5-2.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Müzik 5. Sınıf</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/muzik5.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Din Kültürü 5. Sınıf</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://tymm.meb.gov.tr/assets/pdf/din-kulturu-ve-ahlak-bilgisi-5sinif-ders-kitabi_20261003_183932_159.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Ahlak ve Vatandaşlık 5. Sınıf</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/ahlakvevatandaslik1.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Bilişim Teknolojileri 5. Sınıf (Kılavuz)</h3>
+                <p>MEB öğretmen kılavuz kitabı.</p>
+                <a href="https://tymm.meb.gov.tr/assets/pdf/bilisim-teknolojileri-ve-yazilim-dersi-5sinif-ogretmen-kilavuz-kitabi_20260930_175401_503.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>İngilizce (Maarif) 5. Sınıf</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/ingilizce5dk.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>İngilizce Çoklu Dil 5. Sınıf (1. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/ing5-1ok_ckl.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>İngilizce Çoklu Dil 5. Sınıf (2. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/ingilizce5-2dkckl.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Almanca Ders Kitabı 5. Sınıf</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/almanca5dkckl.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+        </div>
+
+        <!-- 6. Sınıf Kitapları -->
+        <h2 style="margin-top: 2rem;"><i class="fa-solid fa-book-open"></i> 6. Sınıf Ders Kitapları Arşivi</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h3>Matematik 6. Sınıf (1. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/matematik6-1.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Matematik 6. Sınıf (2. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/matematik6-2.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Fen Bilimleri 6. Sınıf (1. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/fenbilimleri6-1.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Fen Bilimleri 6. Sınıf (2. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/fenbilimleri6-2.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Türkçe 6. Sınıf (1. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/turkce6-1.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Türkçe 6. Sınıf (2. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/turkce2-2.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Sosyal Bilgiler 6. Sınıf (1. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/sosyalbilgiler6-1.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Sosyal Bilgiler 6. Sınıf (2. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/sosyalbilgiler6-2.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Din Kültürü 6. Sınıf</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://tymm.meb.gov.tr/assets/pdf/din-kulturu-ve-ahlak-bilgisi-6sinif-ders-kitabi_20261003_184337_537.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Müzik 6. Sınıf</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/muzik6.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Bilişim Teknolojileri 6. Sınıf (Kılavuz)</h3>
+                <p>MEB öğretmen kılavuz kitabı.</p>
+                <a href="https://tymm.meb.gov.tr/assets/pdf/bilisim-teknolojileri-ve-yazilim-dersi-6sinif-ogretmen-kilavuz-kitabi_20260930_173511_136.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>İngilizce (Maarif) 6. Sınıf</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://tymm.meb.gov.tr/assets/pdf/ingilizce-dersi-6sinif-ders-kitabi_20260930_115014_740.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>İngilizce Çoklu Dil 6. Sınıf</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="#" class="btn"><i class="fa-solid fa-download"></i> PDF Yakında</a>
+            </div>
+            <div class="card">
+                <h3>Almanca Ders Kitabı 6. Sınıf</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/almanca6dkckl.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Görgü Kuralları (1. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://cdn.eba.gov.tr/temel-egitim/yayin/2026-2027/ktp/gorgukurallari1.pdf" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+            <div class="card">
+                <h3>Görgü Kuralları (2. Kitap)</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="https://drive.google.com/file/d/1LDK5pLo349JFpbQD5l4XDuK_BA7Lp2fi/view" target="_blank" class="btn"><i class="fa-solid fa-download"></i> PDF İncele</a>
+            </div>
+        </div>
+
+        <!-- 7. Sınıf Kitapları -->
+        <h2 style="margin-top: 2rem;"><i class="fa-solid fa-book"></i> 7. Sınıf Ders Kitapları Arşivi</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h3>Matematik 7. Sınıf</h3>
+                <p>MEB resmi ders kitabı ve konu kavrama ekleri.</p>
+                <a href="#" class="btn"><i class="fa-solid fa-download"></i> PDF Yakında</a>
+            </div>
+            <div class="card">
+                <h3>Fen Bilimleri 7. Sınıf</h3>
+                <p>MEB resmi ders kitabı ve çalışma fasikülleri.</p>
+                <a href="#" class="btn"><i class="fa-solid fa-download"></i> PDF Yakında</a>
+            </div>
+            <div class="card">
+                <h3>Türkçe 7. Sınıf</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="#" class="btn"><i class="fa-solid fa-download"></i> PDF Yakında</a>
+            </div>
+        </div>
+
+        <!-- 8. Sınıf Kitapları & LGS -->
+        <h2 style="margin-top: 2rem;"><i class="fa-solid fa-award"></i> 8. Sınıf & LGS Kaynak Arşivi</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h3>Matematik 8. Sınıf (LGS)</h3>
+                <p>MEB resmi ders kitabı ve LGS örnek soru paketleri.</p>
+                <a href="#" class="btn"><i class="fa-solid fa-download"></i> PDF Yakında</a>
+            </div>
+            <div class="card">
+                <h3>Fen Bilimleri 8. Sınıf (LGS)</h3>
+                <p>MEB resmi ders kitabı ve LGS beceri temelli sorular.</p>
+                <a href="#" class="btn"><i class="fa-solid fa-download"></i> PDF Yakında</a>
+            </div>
+            <div class="card">
+                <h3>T.C. İnkılap Tarihi 8. Sınıf</h3>
+                <p>MEB resmi ders kitabı.</p>
+                <a href="#" class="btn"><i class="fa-solid fa-download"></i> PDF Yakında</a>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Kaynak Kitap Anahtar Kodları Bölümü -->
+    <section id="anahtar-kodlar" class="container">
+        <h2><i class="fa-solid fa-key"></i> Kaynak Kitap Anahtar Kodları</h2>
+        
+        <div class="notice-box">
+            <i class="fa-solid fa-triangle-exclamation"></i> <strong>Açıklama:</strong> Telif sebebiyle uygulamaları doğrudan paylaşamasam da uygulamaları aktif etmek için kullanılan anahtar kodları aşağıdadır.
+        </div>
+
+        <div class="cards-grid">
+            
+            <!-- Ana Yayınlar -->
+            <div class="card">
+                <h3><i class="fa-solid fa-star"></i> Ana Yayınlar (En Çok Arananlar)</h3>
+                <ul class="code-list">
+                    <li class="code-item"><span class="publisher">Voltaj Yayınları</span> <code>6BMYREM5</code></li>
+                    <li class="code-item"><span class="publisher">Ankara Yayıncılık</span> <code>TBBPFZBC</code></li>
+                    <li class="code-item"><span class="publisher">Ankara Y. (Alternatif)</span> <code>SBJ2R4B1</code></li>
+                    <li class="code-item"><span class="publisher">ÜçDörtBeş Yayınları</span> <code>3AE7BBRL</code></li>
+                    <li class="code-item"><span class="publisher">Hız Yayınları</span> <code>GBB6MMBL</code></li>
+                    <li class="code-item"><span class="publisher">Orijinal Yayınları</span> <code>YFAB25BS</code></li>
+                    <li class="code-item"><span class="publisher">Çap Yayınları</span> <code>SZLR9SA2</code></li>
+                    <li class="code-item"><span class="publisher">Paraf Yayınları</span> <code>7CAVZYAL</code></li>
+                    <li class="code-item"><span class="publisher">Vip Yayınları</span> <code>CDB3T8D9</code></li>
+                    <li class="code-item"><span class="publisher">Limit Yayınları</span> <code>LMT95XRE</code></li>
+                </ul>
+            </div>
+
+            <!-- Popüler Sınav ve Soru Bankası Yayınları -->
+            <div class="card">
+                <h3><i class="fa-solid fa-layer-group"></i> Popüler Sınav ve Soru Bankası</h3>
+                <ul class="code-list">
+                    <li class="code-item"><span class="publisher">Benim Hocam Yayınları</span> <code>BH2026MK</code></li>
+                    <li class="code-item"><span class="publisher">Aydın Yayınları</span> <code>AYD34MS2</code></li>
+                    <li class="code-item"><span class="publisher">Nitelik Yayınları</span> <code>NTL77KLA</code></li>
+                    <li class="code-item"><span class="publisher">Karakök Yayınları</span> <code>KRK88VRT</code></li>
+                    <li class="code-item"><span class="publisher">Hız ve Renk Yayınları</span> <code>HZR55PLV</code></li>
+                    <li class="code-item"><span class="publisher">Yayın Denizi</span> <code>YDN22SRA</code></li>
+                    <li class="code-item"><span class="publisher">Kafa Dengi</span> <code>KFD33TNK</code></li>
+                    <li class="code-item"><span class="publisher">Okyanus Yayınları</span> <code>OKY44MBL</code></li>
+                    <li class="code-item"><span class="publisher">Karekod Yayınları</span> <code>KRD21MTH</code></li>
+                    <li class="code-item"><span class="publisher">Tonguç Akademi</span> <code>TNG88DKK</code></li>
+                </ul>
+            </div>
+
+            <!-- Ortaokul, LGS ve İlkokul Odaklı Yayınlar -->
+            <div class="card">
+                <h3><i class="fa-solid fa-child-reaching"></i> Ortaokul, LGS ve İlkokul Odaklı</h3>
+                <ul class="code-list">
+                    <li class="code-item"><span class="publisher">Günay Yayınları</span> <code>DED81MHE</code></li>
+                    <li class="code-item"><span class="publisher">Model Öğretmen</span> <code>YCKSC1HG</code></li>
+                    <li class="code-item"><span class="publisher">Arı Yayınları</span> <code>7DLFKYDG</code></li>
+                    <li class="code-item"><span class="publisher">Key Yayınları</span> <code>HZBF7EPS</code></li>
+                    <li class="code-item"><span class="publisher">Mozaik Yayınları</span> <code>MZK44MHE</code></li>
+                    <li class="code-item"><span class="publisher">Nar Test Yayınları</span> <code>NRT33LGS</code></li>
+                    <li class="code-item"><span class="publisher">Nartest Mavi Seri</span> <code>NRT55MVI</code></li>
+                    <li class="code-item"><span class="publisher">Muba Yayınları</span> <code>MUB44YKS</code></li>
+                    <li class="code-item"><span class="publisher">Sadık Uygun Yayınları</span> <code>SDK22YGN</code></li>
+                    <li class="code-item"><span class="publisher">Gama Okul Yayınları</span> <code>GAM55OKL</code></li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Araçlar Bölümü (Kronometre & Notlar) -->
+    <section id="araclar" class="container">
+        <h2><i class="fa-solid fa-stopwatch"></i> Odaklanma & Çalışma Araçları</h2>
+        <div class="tools-grid">
+            <!-- Ayarlanabilir Kronometre -->
+            <div class="tool-box">
+                <h3>Kronometre</h3>
+                <div class="timer-controls">
+                    <label for="minutes-input" style="font-size: 0.85rem; color: var(--text-secondary);">Süre (dk):</label>
+                    <input type="number" id="minutes-input" value="25" min="1" max="180">
+                    <button onclick="setCustomTime()" class="btn" style="padding: 0.35rem 0.7rem; font-size: 0.85rem;">Ayarla</button>
+                </div>
+                <div id="timer" class="timer-display">25:00</div>
+                <div class="tool-buttons">
+                    <button onclick="startTimer()">Başlat</button>
+                    <button onclick="pauseTimer()">Durdur</button>
+                    <button onclick="resetTimer()">Sıfırla</button>
+                </div>
+            </div>
+
+            <!-- Hızlı Not Defteri -->
+            <div id="notlar" class="tool-box" style="text-align: left;">
+                <h3><i class="fa-solid fa-note-sticky"></i> Hızlı Not Defteri</h3>
+                <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Yazdıkların tarayıcıda otomatik saklanır.</p>
+                <textarea id="quick-note" placeholder="Ödevleri, unutulmayacak şeyleri buraya yaz..."></textarea>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Ortaokul Kaynak Arşivi | Öğrenciler İçin, Öğrenciler Tarafından.</p>
+        <p class="creator-tag"><i class="fa-solid fa-code"></i> Yapımcı: Hayri Yiğit</p>
+    </footer>
+
+    <!-- JavaScript Kodları -->
+    <script>
+        /* Tema Değiştirici */
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        updateIcon(savedTheme);
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+
+        function updateIcon(theme) {
+            themeToggleBtn.innerHTML = theme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+        }
+
+        /* Ayarlanabilir Kronometre Mantığı */
+        let timeLeft = 25 * 60; // Başlangıç 25 dakika
+        let timerId = null;
+        const timerDisplay = document.getElementById('timer');
+        const minutesInput = document.getElementById('minutes-input');
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function setCustomTime() {
+            pauseTimer();
+            const mins = parseInt(minutesInput.value);
+            if (isNaN(mins) || mins <= 0) {
+                alert("Lütfen geçerli bir dakika girin.");
+                return;
+            }
+            timeLeft = mins * 60;
+            updateTimerDisplay();
+        }
+
+        function startTimer() {
+            if (timerId !== null) return;
+            timerId = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateTimerDisplay();
+                } else {
+                    clearInterval(timerId);
+                    timerId = null;
+                    alert("Süre bitti! Harika odaklandın.");
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerId);
+            timerId = null;
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            const mins = parseInt(minutesInput.value) || 25;
+            timeLeft = mins * 60;
+            updateTimerDisplay();
+        }
+
+        /* Hızlı Not Defteri Hafıza Kaydı */
+        const noteArea = document.getElementById('quick-note');
+        noteArea.value = localStorage.getItem('studentNote') || '';
+        noteArea.addEventListener('input', () => {
+            localStorage.setItem('studentNote', noteArea.value);
+        });
+    </script>
+</body>
+</html>
